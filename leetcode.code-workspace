@@ -1,6 +1,9 @@
 {
 	"folders": [
 		{
+			"path": "..\\Desktop\\node学习\\es6-10"
+		},
+		{
 			"name": ".leetcode",
 			"path": "."
 		}
