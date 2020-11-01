@@ -10,32 +10,23 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function (s) {
-  let strArr = s.split('')
-  let i = 0,
-    len = 0,
-    maxLen = 0,
-    memoj = 0;
-    while (i < strArr.length) {
-    let flag = true
-    let char = strArr[i]
-    for (let j = memoj; j <= i-1; j++) {
-      if (char == strArr[j]) {
-        len = 0;
-        memoj = j+1;
-        i = j;
-        flag = false
-        break;
-      }
-    }
-    if (flag) {
-      len++
-      if (len > maxLen) {
-        maxLen = len
-      }
-    }
-    i++;
+  if(!s.length)return 0;
+  let res=1;
+  for(let i=0;i<s.length;i++){
+    if(i<s.length&&s[i]==s[i+1]){
+      continue;
+    }   
+    let j=i+1;
+    let map = new Map()
+    map.set(s[i],i);
+    while(!map.has(s[j])&&j<s.length){
+      map.set(s[j],j);
+      res=Math.max(res,j-i+1);
+      j++;
+    } 
+    i = map.get(s[j]);
   }
-  return maxLen
+  return res
 };
 // @lc code=end
 

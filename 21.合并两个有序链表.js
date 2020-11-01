@@ -18,31 +18,25 @@
  * @return {ListNode}
  */
 var mergeTwoLists = function (l1, l2) {
-  // const ListNode = (l1&&l1.constructor)||(l2&&l2.constructor)
-  let list = new ListNode(0)
-  let head = list
-  while (l1||l2) {
-    list.next = new ListNode()
-    list = list.next
-    if(l1&&!l2){
-      list.val=l1.val
-      l1=l1.next
-      continue
-    }
-    if(l2&&!l1){
-      list.val=l2.val
-      l2=l2.next
-      continue
-    }
-    if(l1.val<l2.val){
-      list.val=l1.val
-      l1=l1.next
+  const res = new ListNode(0);
+  let p = res;
+  while(l1&&l2){
+    if(l1.val>l2.val){
+      p.next = l2;
+      l2=l2.next;
     }else{
-      list.val=l2.val
-      l2=l2.next
+      p.next = l1;
+      l1=l1.next;
     }
+    p=p.next;
   }
-  return head.next
+  if(l1){
+    p.next = l1;
+  }
+  if(l2){
+    p.next =l2;
+  }
+  return res.next;
 };
 // @lc code=end
 // @after-stub-for-debug-begin
