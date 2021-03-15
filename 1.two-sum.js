@@ -11,18 +11,19 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    let prevNums = {}
-    for(let i=0;i<nums.length;i++){
-      const curNum = nums[i];
-      const targetNum = target - curNum;
-      //从prevNums中看是否能够获取到targetNum的索引值
-      const targetNumIndex = prevNums[targetNum]
-      if(targetNumIndex===undefined){
-        prevNums[curNum] = i;//如果判断当前没有目标值对应数的索引
+    const prevNums = new Map();
+    for (let index = 0; index < nums.length; index++) {
+      const curNum = nums[index];
+      if(!prevNums.has(target-curNum)){
+        prevNums.set(curNum,index);
       }else{
-        return [targetNumIndex,i]
+        return [prevNums.get(target-curNum),index];
       }
     }
 };
 // @lc code=end
 
+
+// @after-stub-for-debug-begin
+module.exports = twoSum;
+// @after-stub-for-debug-end
