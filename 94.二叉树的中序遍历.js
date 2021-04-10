@@ -31,19 +31,33 @@ var inorderTraversal = function (root) {
   //   }
   // }
   // return res
+  //版本2
+  // const stack = [];
+  // const res = [];
+  // let p = root;
+  // while(stack.length||p){
+  //   while(p){
+  //     stack.push(p);
+  //     p=p.left;
+  //   }
+  //   let n = stack.pop();
+  //   res.push(n.val);
+  //   p = n.right;
+  // }
+  // return res;
   const stack = [];
   const res = [];
-  let p = root;
-  while(stack.length||p){
-    while(p){
-      stack.push(p);
-      p=p.left;
+  while(stack.length||root){
+    if(root){
+      stack.push(root);
+      root=root.left;
+    }else{
+      root = stack.pop();
+      res.push(root.val);
+      root = root.right;
     }
-    let n = stack.pop();
-    res.push(n.val);
-    p = n.right;
   }
-  return res;
+  return res
 };
 // @lc code=end
 

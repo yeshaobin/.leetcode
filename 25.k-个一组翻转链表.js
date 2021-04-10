@@ -20,7 +20,7 @@
 
 var reverseKGroup = function (head, k) {
   //debug
-  let ListNode = head.constructor
+  // let ListNode = head.constructor
   let dummy = new ListNode();
   dummy.next = head;
   const result = dummy

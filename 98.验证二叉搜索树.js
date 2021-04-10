@@ -17,22 +17,39 @@
  * @return {boolean}
  */
 var isValidBST = function (root) {
+  // if (!root) return true;
+  // let pre = -Infinity;
+  // let res = true;
+  // const dfs = (root) => {
+  //   if (!root||!res) return;
+  //   dfs(root.left);
+  //   if (root.val <= pre) {
+  //     res = false
+  //   }
+  //   pre = root.val;
+  //   dfs(root.right);
+  // }
+
+  // dfs(root);
+
+  // return res
   if (!root) return true;
+  const stack = [];
   let pre = -Infinity;
-  let res = true;
-  const dfs = (root) => {
-    if (!root) return;
-    dfs(root.left);
-    if (root.val <= pre) {
-      res = false
+  while(stack.length||root){
+    if(root){
+      stack.push(root)
+      root = root.left;
+    }else{
+      root = stack.pop();
+      if(root.val<=pre){
+        return false;
+      }
+      pre = root.val;
+      root = root.right;
     }
-    pre = root.val;
-    dfs(root.right);
   }
-
-  dfs(root);
-
-  return res
+  return true
 };
 // @lc code=end
 

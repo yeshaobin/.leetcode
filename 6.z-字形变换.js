@@ -56,14 +56,14 @@
 var convert = function(s, numRows) {
   if(numRows===1)return s;
   let rows = [];
-  let down = false;
-  let loc = 0;
+  let down = true;
+  let col = 0;
   for(let i=0;i<s.length;i++){
-    rows[loc] = (rows[loc]||'')+s[i]
-    if(loc===0||loc===numRows-1){
+    rows[col] = (rows[col]||'')+s[i]
+    down?col++:col--
+    if(col===0||col===numRows-1){
       down=!down
     }
-    down?loc++:loc--
   }
   return rows.join('')
 };

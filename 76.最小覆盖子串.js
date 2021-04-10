@@ -11,39 +11,39 @@
  * @return {string}
  */
 var minWindow = function (s, t) {
-  let l = r = 0;
-  let need = new Map()
-  let res=''
-  for (const iterator of t) {
-    need.set(iterator, need.has(iterator) ? (need.get(iterator) + 1) : 1)
-  }
-  let needType = need.size
-  while (r < s.length) {
+  let l=0;
+  const map = new Map();
+  t.split('').forEach(item=>{
+    map.set(item,map.has(item)?map.get(item)+1:1)
+  })
+  let needType = map.size;
+  let res = '';
+  for (let r = 0; r < s.length; r++) {
     const c = s[r];
-    if (need.has(c)) {
-      need.set(c,need.get(c) - 1)
-      if(need.get(c)===0){
-        needType--;
+    if(map.has(c)){
+      map.set(c,map.get(c)-1);
+      if(map.get(c)===0){
+        needType-=1;
       }
-    };
-    
-    while(needType==0){
-      const newRes = s.substring(l,r+1)
-      if(!res||newRes.length<res.length){
-        res = newRes
+    }
+    while(needType===0){
+      // console.log(s.substring(l,r+1))
+      const goodString = s.substring(l,r+1);
+      if(res!==''){
+        res = goodString.length<res.length?goodString:res;
+      }else{
+        res=goodString;
       }
-      const c2 = s[l];
-      if(need.has(c2)){
-        need.set(c2,need.get(c2)+1)
-        if(need.get(c2)==1){
-          needType++
+      if(map.has(s[l])){
+        map.set(s[l],map.get(s[l])+1) 
+        if(map.get(s[l])===1){
+          needType+=1
         }
       }
       l++;
     }
-    r++;
   }
-  return res
+  return res;
 };
 // @lc code=end
 // @after-stub-for-debug-begin
