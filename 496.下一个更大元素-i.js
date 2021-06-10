@@ -12,15 +12,18 @@
  */
 var nextGreaterElement = function(nums1, nums2) {
     const res = {},stack = [];
-    for(let i=nums2.length-1;i>=0;i--){
+    for(let i=0;i<nums2.length;i++){
         while(stack.length&&nums2[i]>stack[stack.length-1]){
-            stack.pop()
+            const value = stack.pop();
+            res[value] = nums2[i];
+            if(!stack.length){break;}
         }
-        res[nums2[i]] = stack.length?stack[stack.length-1]:-1;
-        stack.push(nums2[i]);
+        stack.push(nums2[i])
     }
-    // console.log(res)
-    return nums1.map(item=>res[item])
+    stack.forEach(item=>{
+        res[item]=-1;
+    })
+    return nums1.map(item=>res[item]) ;
 };
 // @lc code=end
 

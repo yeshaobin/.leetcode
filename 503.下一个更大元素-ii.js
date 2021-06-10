@@ -10,18 +10,18 @@
  * @return {number[]}
  */
 var nextGreaterElements = function(nums) {
-    const s = [],res=[];
-    const n = nums.length
-    for(let i=2*n-1;i>=0;i--){
-        let top = s.length-1
-        while(s.length&&s[top]<=nums[i]){
-            s.pop()
-            top = s.length-1
+    const res = {},stack = [];
+    for(let i=0;i<2*nums.length;i++){
+        while(stack.length&&nums[i%nums.length]>nums[stack[stack.length-1]]){
+            const index = stack.pop();
+            res[index] = nums[i%nums.length];
         }
-        res[i%n] = s.length?s[s.length-1]:-1
-        s.push(nums[i%n])
+        stack.push(i%nums.length)
     }
-    return res
+    stack.forEach(item=>{
+        res[item]=res[item]==undefined?-1:res[item];
+    })
+    return nums.map((item,index)=>res[index]) ;
 };
 // @lc code=end
 

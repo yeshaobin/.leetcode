@@ -36,29 +36,52 @@
  * @return {string}
  */
 var longestPalindrome = function(s) {
-  if(!s||s.length===0)return '';
-  let res = s[0]
-  const dp = []
+  // if(!s||s.length===0)return '';
+  // let res = s[0]
+  // const dp = []
+  // for(let i=s.length-1;i>=0;i--){
+  //   dp[i]=[]
+  //   for(let j=i;j<s.length;j++){
+  //     if(j-i===0){
+  //       dp[i][j]=true
+  //     }else if(j-i===1&&s[i]===s[j]){
+  //       dp[i][j]=true
+  //     }else if(s[i]===s[j]&&dp[i+1][j-1]){
+  //       /**
+  //        * 在循环中i向左走 j向右走
+  //        * i j 是两个指针,i向右走,j向左走,如果此时还能相等就是回文
+  //        */
+  //       dp[i][j]=true
+  //     }
+  //     if(dp[i][j]&&j-i+1>res.length){
+  //       res = s.slice(i,j+1)
+  //     }
+  //   }
+  // }
+  // return res
+
+  if(!s)return s;
+  const dp = [];
+  let res = '';
   for(let i=s.length-1;i>=0;i--){
-    dp[i]=[]
-    for(let j=i;j<s.length;j++){
-      if(j-i===0){
-        dp[i][j]=true
-      }else if(j-i===1&&s[i]===s[j]){
-        dp[i][j]=true
-      }else if(s[i]===s[j]&&dp[i+1][j-1]){
-        /**
-         * 在循环中i向左走 j向右走
-         * i j 是两个指针,i向右走,j向左走,如果此时还能相等就是回文
-         */
-        dp[i][j]=true
-      }
-      if(dp[i][j]&&j-i+1>res.length){
-        res = s.slice(i,j+1)
+    dp[i] = [];
+    for(let j=i;j<=s.length-1;j++){
+      if(s[i]==s[j]){
+        if(i==j){
+          dp[i][j]=true;
+        }else if(j-i==1){
+          dp[i][j]=true;
+        }else if(dp[i+1][j-1]){
+          dp[i][j]=true;
+        }
+        if(dp[i][j]&&j-i+1>res.length){
+          res = s.slice(i,j+1)
+        }
       }
     }
   }
-  return res
+  return res;
+
 };
 // @lc code=end
 

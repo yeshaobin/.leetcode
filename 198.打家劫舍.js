@@ -13,13 +13,13 @@ var rob = function(nums) {
   if(nums.length==0){
     return 0;
   }
-  let dp0 = 0,dp1=nums[0];
-  for(let i=2;i<=nums.length;i++){
-    const dp2=Math.max(dp0+nums[i-1],dp1);
-    dp0 = dp1;
-    dp1 = dp2;
+  let previous1 = 0,previous2 = 0,ans=0;
+  for(let i=0;i<nums.length;i++){
+    ans = Math.max(ans,previous2+nums[i]);
+    previous2 = previous1
+    previous1 = ans
   }
-  return dp1;
+  return ans
 };
 // @lc code=end
 

@@ -28,15 +28,16 @@
 //   return ans;
 // };
 var trap = function (height) {
-  let ans=0,current=0,stack = [];
-  while(current<height.length){
-    while(stack.length&&height[current]>height[stack[0]]){
-      let top = stack.shift();
-      if(!stack.length){break;} 
-      let distance = current - stack[0]-1;
-      ans+=distance*(Math.min(height[current],height[stack[0]])-height[top])
+  let ans = 0,stack = [];
+  for(let i = 0;i<height.length;i++){
+    while(stack.length&&height[i]>height[stack[stack.length-1]]){
+      const midIndex = stack.pop();
+      if(!stack.length)break;
+      const midHeight = height[midIndex];
+      const width = i - stack[stack.length-1] - 1;
+      ans+= (Math.min(height[stack[stack.length-1]],height[i])-midHeight)*width;
     }
-    stack.unshift(current++)
+    stack.push(i)
   }
   return ans
 } 

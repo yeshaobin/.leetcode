@@ -10,17 +10,14 @@
  * @return {number}
  */
 var largestRectangleArea = function(heights) {
-  let ans = 0,stack=[];
-  heights.push(0);
-  heights.unshift(0);
+  let ans=0,stack = [];heights=[0,...heights,0]
   for(let i=0;i<heights.length;i++){
-    let rightBound = heights[i];
-    while(stack.length&&heights[stack[0]]>rightBound){
-      let midHeight = heights[stack.shift()]
-      let width = i- stack[0] -1;
-      ans = Math.max(ans,width*midHeight)
+    while(stack.length&&heights[i]<heights[stack[stack.length-1]]){
+      const left = heights[stack.pop()];
+      const width = i - stack[stack.length-1] -1;
+      ans = Math.max(ans,width*left)
     }
-    stack.unshift(i)
+    stack.push(i)
   }
   return ans
 };
